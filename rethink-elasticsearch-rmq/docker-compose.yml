@@ -1,0 +1,41 @@
+rmq:
+  image: rabbitmq:3.6.2-management
+  environment:
+    RABBITMQ_DEFAULT_USER: dev
+    RABBITMQ_DEFAULT_PASS: dev
+    RABBITMQ_DEFAULT_VHOST: local
+es:
+  build: .
+  dockerfile: Dockerfile.es
+  ports:
+    - "9200:9200"
+    - "9300:9300"
+rdb1:
+  image: rethinkdb:2.3.4
+  command: ["rethinkdb", "--bind", "all", "-t", "us_west2", "-n", "rdb1"]
+  volumes:
+    - $PWD/cluster/data01:/data
+  ports:
+    - "8081:8080"
+rdb2:
+  image: rethinkdb:2.3.4
+  command: ["rethinkdb", "--bind", "all", "-t", "us_west2", "-n", "rdb2", "--join", "rdb1"]
+  volumes:
+    - $PWD/cluster/data02:/data
+  links:
+    - rdb1
+  ports:
+    - "8082:8080"
+rdb3:
+  image: rethinkdb:2.3.4
+  command: ["rethinkdb", "--bind", "all", "-t", "us_west2", "-n", "rdb3", "--join", "rdb1"]
+  volumes:
+    - $PWD/cluster/data03:/data
+  links:
+    - rdb1
+  ports:
+    - "8083:8080"
+
+
+
+# open "http://$(dm ip realtimedom):8080"
