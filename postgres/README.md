@@ -22,3 +22,15 @@ Change to the directory of the docker-compose.yml file and run the following doc
     docker-compose up -d
 
 Docker will start to download the Postgres image from DockerHub if you don’t already have it.  When the download is complete the container will start and configure the database according to the settings from above.
+
+## Example
+
+As an example if you have the following settings.
+
+    Docker Host IP: 192.168.1.250
+    POSTGRES_DB: my_app_db
+    POSTGRES_USER: admin
+    POSTGRES_PASSWORD: adminpassword
+
+    postgresql://admin:adminpassword@192.168.1.250:5432/my_app_db
+
