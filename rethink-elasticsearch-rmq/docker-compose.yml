@@ -7,6 +7,12 @@ rmq:
 es:
   build: .
   dockerfile: Dockerfile.es
+  environment:
+    ES_HEAP_SIZE: 2g
+    MAX_LOCKED_MEMORY: unlimited
+    MAX_OPEN_FILES: 131070
+  volumes:
+    - $PWD/config:/usr/share/elasticsearch/config
   ports:
     - "9200:9200"
     - "9300:9300"
