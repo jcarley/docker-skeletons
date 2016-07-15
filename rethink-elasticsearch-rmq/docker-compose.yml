@@ -4,8 +4,8 @@ smb:
     - "139:139"
     - "445:445"
   volumes:
-    - /srv/share/tappr:/srv/share/tappr
-  command: ["-p", "-n", "-s", "tappr;/srv/share/tappr;yes;no;yes", "-w", "tappr"]
+    - /srv/share/data:/srv/share/data
+  command: ["-p", "-n", "-s", "data;/srv/share/data;yes;no;yes", "-w", "data"]
 rmq:
   image: rabbitmq:3.6.2-management
   environment:
